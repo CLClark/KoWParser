@@ -5,13 +5,15 @@ import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.*;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 public class KoWPMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws XPathExpressionException {
+		
 		String inputPath = System.getProperty("user.dir");
 		System.out.println(inputPath);
 		inputPath = inputPath.concat("\\data\\TheHerd.xhtml");
@@ -21,22 +23,28 @@ public class KoWPMain {
 		System.out.println(z.getAbsolutePath());
 		Document emptyDoc;
 		emptyDoc = createDocument(z);
-//		Element eZ = emptyDoc.getDocumentElement();
-		NodeList nL = emptyDoc.getElementsByTagName("*");
+		System.out.println(emptyDoc.getDocumentURI());
 		
-//		System.out.println(eZ.getTagName());
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		String expression = "//*[@class=\"colUS\"]/parent::*/child::*/text() | //*[@class=\"colUS\"]/parent::*/child::*/@class";
 		
-//		for (int i = 0; i < nL.getLength(); i++){
-////			boolean texty = nL.item(i).hasChildNodes();
-//			if (nL.item(i).hasChildNodes() == true) {
-//				for(int j = 0; j < nL.item(i).getChildNodes().getLength(); j++){
-//						System.out.println(nL.item(i).getChildNodes().item(j).getNodeValue());
-//						System.out.println(j + "-" + i);
-//								
-//				}
-//			}
-//		}
-	}
+		NodeList nodes; 
+//		nodes = (NodeList) xpath.evaluate(expression, emptyDoc, XPathConstants.NODESET);
+		XPathExpression statsExp = xpath.compile(expression);
+		
+		NodeList printy = (NodeList) statsExp.evaluate(emptyDoc, XPathConstants.NODESET);
+//		System.out.println((printy).item(9).getNodeValue());
+//		System.out.println(printy.getLength());
+		
+		for (int i = 0; i < printy.getLength(); i++){
+//			if(printy.item(i).getNodeType() == Node.TEXT_NODE){
+//			System.out.println(nodes.item(i).getNodeValue());
+//			System.out.println(printy.item(i).getParentNode().getNodeName());
+			System.out.println((printy).item(i).getNodeValue().replace("col","").replace("LB", ""));
+			if (i%2 == 0) System.out.println("");
+			}
+		}
+//	}
 //			System.out.println(nL.item(i).);
 			
 			
