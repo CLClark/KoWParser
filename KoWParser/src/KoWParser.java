@@ -14,6 +14,9 @@ import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQPreparedExpression;
 import javax.xml.xquery.XQSequence;
 
+import javax.xml.*;
+
+
 
 
 public class KoWParser {
@@ -82,16 +85,15 @@ public class KoWParser {
 
 	// removes RTF tags and fields from the input string and returns the cleaned, human-readable version of that string
 	private String clean(String content) {
-		content = content.replace("\\~", " ");
-		content = content.replaceAll("\\{\\\\\\*\\\\blipuid[a-zA-Z0-9|\\s|\\n]+\\}[a-zA-Z0-9|\\s|\\n]+\\}\\}", "");
-		content = content.replaceAll("\\{\\\\\\*\\\\(bkmkstart|bkmkend)[A-Za-z0-9._\\*-|\\s]+\\}", "");
-		content = content.replaceAll("(\\\\[A-Za-z0-9._\\*-]+)+", "");
-		content = content.replaceAll("\\{\\{ HYPERLINK \\\\ \"\\w*\" \\}\\{ Table of Contents\\}\\}", "");
-		content = content.replaceAll("(?i)HYPERLINK \\\\ \"\\w*\"", " ");
-		content = content.replaceAll("\\{ gmnh1page\\w*\\}", "");
-		content = content.replace("{", "");
-		content = content.replace("}", "");
-
+//		content = content.replace("\\~", " ");
+//		content = content.replaceAll("\\{\\\\\\*\\\\blipuid[a-zA-Z0-9|\\s|\\n]+\\}[a-zA-Z0-9|\\s|\\n]+\\}\\}", "");
+//		content = content.replaceAll("\\{\\\\\\*\\\\(bkmkstart|bkmkend)[A-Za-z0-9._\\*-|\\s]+\\}", "");
+//		content = content.replaceAll("(\\\\[A-Za-z0-9._\\*-]+)+", "");
+//		content = content.replaceAll("\\{\\{ HYPERLINK \\\\ \"\\w*\" \\}\\{ Table of Contents\\}\\}", "");
+//		content = content.replaceAll("(?i)HYPERLINK \\\\ \"\\w*\"", " ");
+//		content = content.replaceAll("\\{ gmnh1page\\w*\\}", "");
+//		content = content.replace("{", "");
+//		content = content.replace("}", "");
 		return content;
 	}
 
@@ -217,21 +219,23 @@ public class KoWParser {
 	// This field will be located: {\field{\*\fldinst HYPERLINK \\l "part_1_2_1"}{\*\fldrslt PART I}}
 	// The bookmark would be part_1_2_1.
 	private static String getBookmark(String sectionName, String content) {
-		return content.substring(content.lastIndexOf("\\*\\fldrslt " + sectionName) - 18, content.lastIndexOf("\\*\\fldrslt " + sectionName) + 30)
-				.split("\"")[1];
+//		return content.substring(content.lastIndexOf("\\*\\fldrslt " + sectionName) - 18, content.lastIndexOf("\\*\\fldrslt " + sectionName) + 30)
+//				.split("\"")[1];
 	}
 	
 	private void extractCompanyName() {
-		int endIndex = 30000;
-		if(rawContent.length()<30000)
-			endIndex = rawContent.length();
-		Pattern pattern = Pattern.compile("(.*?)Form 10-K(.*?)Filed:(.*?)Annual report with a comprehensive overview of the company",Pattern.DOTALL);
-		Matcher matcher = pattern.matcher(rawContent.substring(0, endIndex));
-		if (matcher.find()) {
-			String temp = clean(matcher.group(2));
-			String temp2 = new StringBuilder(temp).reverse().toString().split("-",2)[1];
-			companyName = new StringBuilder(temp2).reverse().toString().trim();
-			noCompanyNameCount++;
+//		int endIndex = 30000;
+//		if(rawContent.length()<30000)
+//			endIndex = rawContent.length();
+//		Pattern pattern = Pattern.compile("(.*?)Form 10-K(.*?)Filed:(.*?)Annual report with a comprehensive overview of the company",Pattern.DOTALL);
+//		Matcher matcher = pattern.matcher(rawContent.substring(0, endIndex));
+//		if (matcher.find()) {
+//			String temp = clean(matcher.group(2));
+//			String temp2 = new StringBuilder(temp).reverse().toString().split("-",2)[1];
+//			companyName = new StringBuilder(temp2).reverse().toString().trim();
+//			noCompanyNameCount++;
+		companyName = "define it from xml data";
+		
 		}
 
 	}

@@ -1,9 +1,7 @@
 //developed by Chris Clark based on code from Luigi Vamenta 
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -60,15 +58,15 @@ public class KoWUnits {
 					KoWParser form = new KoWParser(inputFile.getAbsolutePath()); //KoWParser
 
 					// output file containing (more or less) only Item 1 and 1A of the document
-					outputFile = outputPath + inputFileName + ".csv";
-
-					BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
-					bw.write(form.getCompanyName());
-					bw.newLine();
-					bw.write("~~~~~~~~~~~~~~~~~~~~");
-					bw.newLine();
-					bw.write(form.getNeededContent());
-					bw.close();
+//					outputFile = outputPath + inputFileName + ".csv";
+//
+//					BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+//					bw.write(form.getCompanyName());
+//					bw.newLine();
+//					bw.write("~~~~~~~~~~~~~~~~~~~~");
+//					bw.newLine();
+//					bw.write(form.getNeededContent());
+//					bw.close();
 
 				}
 			}
